@@ -1,0 +1,87 @@
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+  <!-- GRAPHE EN PREMIER SUR MOBILE -->
+  <div class="order-1 md:order-2 md:col-span-2 bg-slate-800 p-4 rounded">
+
+    <!-- Header du graphe -->
+    <div class="flex justify-between items-center mb-3 flex-wrap">
+      <div class="text-lg font-semibold">
+        Évolution de {{ selectedIndicator().nom }} — {{ selectedCountry().nom }}
+      </div>
+      <div class="text-sm text-slate-400">
+        {{2009}} - {{2024}}
+      </div>
+    </div>
+
+    <!-- Graphique -->
+    <div class="h-110 bg-slate-700 rounded flex items-center justify-center text-slate-400">
+      <apx-chart class="w-full"
+        [series]="chartOptions.series!"
+        [chart]="chartOptions.chart!"
+        [xaxis]="chartOptions.xaxis!"
+        [yaxis]="chartOptions.yaxis!"
+        [dataLabels]="chartOptions.dataLabels!"
+        [stroke]="chartOptions.stroke!"
+        [title]="chartOptions.title!"
+        [tooltip]="chartOptions.tooltip!"
+        [grid]="chartOptions.grid!"
+      ></apx-chart>
+    </div>
+
+    <!-- Tableau -->
+    <div class="mt-4 overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead class="text-slate-400 text-left">
+          <tr>
+            <th class="pb-2">Année</th>
+            <th class="pb-2">Valeur</th>
+            <th class="pb-2">Variation</th>
+          </tr>
+        </thead>
+        <tbody class="text-slate-200">
+          <tr><td class="py-1">2023</td><td>25,300,000,000</td><td>+3.2%</td></tr>
+          <tr><td class="py-1">2022</td><td>24,500,000,000</td><td>+2.8%</td></tr>
+          <tr><td class="py-1">2021</td><td>23,800,000,000</td><td>+1.5%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <!-- COLONNE GAUCHE (EN SECOND SUR MOBILE) -->
+  <div class="order-2 md:order-1 space-y-4">
+
+    <!-- PIB -->
+    <div class="bg-slate-800 p-4 rounded">
+      <div class="flex justify-between items-center mb-3">
+        <div>
+          <div class="text-sm text-slate-400">PIB (dernière année)</div>
+          <div class="text-xl font-semibold">$25.3B</div>
+        </div>
+        <div class="text-xs text-slate-400">Croissance: +3.2%</div>
+      </div>
+      <div class="text-xs text-slate-500">Comparatif régional et historique</div>
+    </div>
+
+    <!-- Top indicateurs -->
+    <div class="bg-slate-800 p-4 rounded">
+      <div class="text-sm font-semibold mb-3">Top 10 indicateurs (complets)</div>
+      <ul class="text-sm text-slate-300 space-y-2">
+        <li>Population — complétude 99%</li>
+        <li>PIB — complétude 96%</li>
+        <li>Dépenses éducation — complétude 92%</li>
+        <li>Taux pauvreté — complétude 88%</li>
+      </ul>
+    </div>
+
+    <!-- Pays sélectionnés -->
+    <div class="bg-slate-800 p-4 rounded">
+      <div class="text-sm font-semibold mb-3">Pays sélectionnés (20)</div>
+      <div class="text-sm text-slate-300">
+        Sénégal, Côte d'Ivoire, Ghana, Nigeria, ...
+      </div>
+    </div>
+
+  </div>
+
+</div>

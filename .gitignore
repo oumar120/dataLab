@@ -1,0 +1,91 @@
+# Django
+*.pyc
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+db.sqlite3
+*.sqlite3
+/vps_data/
+/media
+/staticfiles
+
+# Django migrations
+*/migrations/0*.py
+*/migrations/__pycache__/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.project
+.pydevproject
+.settings/
+
+# Angular
+front/node_modules/
+front/dist/
+front/.angular/
+front/coverage/
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+.dockerignore
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+.tmp/
+
+# OS-specific
+.env.local.php
+
+# Python specific
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE specific
+.vscode/settings.json
+.vscode/launch.json

@@ -1,0 +1,114 @@
+<!-- HEADER -->
+<div class="flex items-center justify-between mb-6 flex-wrap">
+
+  <!-- TITRE -->
+  <div class="flex items-center gap-4 flex-wrap">
+    <div class="text-2xl font-bold">Tableau de bord décisionnel</div>
+
+    <!-- Texte secondaire (masqué sur mobile) -->
+    <div class="hidden md:block text-sm text-slate-400">
+      Données: Banque mondiale • 20 pays • 15 années
+    </div>
+  </div>
+
+  <!-- Search + Export (masqués sur mobile) -->
+</div>
+
+
+
+
+<!-- FILTRES RESPONSIVE -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+  
+  <!-- PAYS -->
+  <div class="bg-slate-800 p-4 rounded">
+    <label class="text-xs text-slate-400"  *ngIf="data.mode()!='indice'">Pays</label>
+     <label class="text-xs text-slate-400" *ngIf="data.mode()=='indice'">selectionner un pays pour analyser ou plusieurs pour comparer</label>
+    
+    <!-- Sélection simple pour dashboard et simulateur -->
+    <select *ngIf="data.mode()!='indice'" 
+      [(ngModel)]="data.selectedCountry" 
+      (ngModelChange)="data.selectedCountry.set($event)"
+      class="w-full bg-slate-700 p-2 rounded mt-2"
+    >
+      @for(p of pays();track p.code_iso){
+        <option [ngValue]="p">{{ p.nom }}</option>
+      }
+    </select>
+    
+    <!-- Sélection multiple pour indice -->
+    <select *ngIf="data.mode()=='indice'" 
+      [(ngModel)]="data.selectedManyCountry" 
+      (ngModelChange)="onCountryChange($event)"
+      class="w-full bg-slate-700 p-2 rounded mt-2"
+      multiple
+      size="5"
+    >
+      @for(p of pays();track p.code_iso){
+        <option [value]="p.code_iso">{{ p.nom }}</option>
+      }
+    </select>
+  </div>
+
+  <!-- INDICATEUR -->
+  <div class="bg-slate-800 p-4 rounded">
+    <label class="text-xs text-slate-400">Indicateur</label>
+    <label class="text-xs text-slate-400 float-end" *ngIf="data.mode()=='indice'"> Ponderation </label>
+    <select [(ngModel)]="data.selectedIndicator" (ngModelChange)="data.selectedIndicator.set($event);"
+      class="w-full bg-slate-700 p-2 rounded mt-2" *ngIf="data.mode()!='indice'"
+    >
+      <option *ngFor="let i of indicateurs()" [ngValue]="i" >{{ i.nom }}</option>
+    </select>
+
+    <div class="bg-slate-800 p-4 rounded" *ngIf="data.mode()=='indice'">
+                <div class="space-y-2 text-sm">
+                  <div class="flex items-center justify-between" *ngFor="let ind of data.weightIndicator() | keyvalue"> 
+                    <label>{{ind.key}}</label>
+                    <input class="w-20 bg-slate-700 px-2 py-1 rounded" value="25" (input)="onToggle(ind.key,$event)" /></div>
+                </div>
+              </div>
+
+    <!-- La période est masquée sur mobile -->
+    <div class="hidden md:block" *ngIf="data.mode()=='dashboard'">
+      <div class="mt-3 text-xs text-slate-400">Période</div>
+      <div class="flex gap-2 mt-2 items-center">
+        <select
+          [(ngModel)]="data.yearStartSelected" (ngModelChange)="data.yearStartSelected.set($event);"
+          class="w-20 bg-slate-700 px-2 py-1 rounded text-sm">
+        <option *ngFor="let y of years()" [value]="y">{{ y }}</option>
+      </select>
+        <span class="text-slate-400">à</span>
+        <select
+          [(ngModel)]="data.yearEndSelected" (ngModelChange)="data.yearEndSelected.set($event);"
+          class="w-20 bg-slate-700 px-2 py-1 rounded text-sm">
+        <option *ngFor="let y of years()" [value]="y">{{ y }}</option>
+      </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTIONS (masqué sur mobile) -->
+  <div class=" md:flex bg-slate-800 p-4 rounded flex-col justify-between" *ngIf="data.mode()=='indice'">
+    <div class="mt-3 text-xs text-slate-400">Période</div>
+      <div class="flex gap-2 ">
+        <select
+          [(ngModel)]="data.yearStartSelected" (ngModelChange)="data.yearStartSelected.set($event);"
+          class="w-20 bg-slate-700 px-2 py-1 rounded text-sm">
+        <option *ngFor="let y of years()" [value]="y" >{{ y }}</option>
+      </select>
+      <ng-container *ngIf="data.selectedManyCountry().length==1">
+        <span class="text-slate-400">à</span>
+        <select
+          [(ngModel)]="data.yearEndSelected" (ngModelChange)="data.yearEndSelected.set($event);"
+          class="w-20 bg-slate-700 px-2 py-1 rounded text-sm" >
+        <option *ngFor="let y of years()" [value]="y">{{ y }}</option>
+      </select>
+      </ng-container>
+      </div>
+       <div class="mt-4 flex justify-start">
+              <button class="bg-emerald-600 px-4 py-2 rounded mr-2" (click)="onCreate()" *ngIf="data.selectedManyCountry().length<=1">Analyser</button>
+               <button class="bg-emerald-600 px-4 py-2 rounded mr-2" (click)="onCreate()" *ngIf="data.selectedManyCountry().length>1">Comparer</button>
+              <button class="bg-slate-700 px-4 py-2 rounded" >Annuler</button>
+            </div>
+  </div>
+</div>

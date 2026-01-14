@@ -1,0 +1,16 @@
+Django==3.2.25
+djangorestframework==3.14.0
+django-cors-headers==4.3.1
+
+# Production WSGI server
+gunicorn==21.2.0
+
+# Static files
+whitenoise==6.6.0
+
+# Data
+pandas==2.2.3
+requests==2.32.3
+
+# LLM narration
+Groq==0.13.1

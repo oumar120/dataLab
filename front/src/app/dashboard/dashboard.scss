@@ -1,0 +1,12 @@
+:host ::ng-deep .apexcharts-toolbar {
+  opacity: 1 !important;          /* toujours visible si tu veux */
+}
+
+:host ::ng-deep .apexcharts-menu {
+  background: #020617 !important;
+  border-color: #1f2937 !important;
+}
+
+:host ::ng-deep .apexcharts-menu-item {
+  color: #e5e7eb !important;
+}

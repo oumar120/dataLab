@@ -1,0 +1,25 @@
+services:
+  backend:
+    build:
+      context: ./back/src
+      dockerfile: Dockerfile
+    environment:
+      DJANGO_DEBUG: "False"
+      DJANGO_SECRET_KEY: "change-me"
+      DJANGO_ALLOWED_HOSTS: "*"
+      DJANGO_DB_PATH: "/data/db.sqlite3"
+      # If GROQ_API_KEY is not set in the environment, it defaults to an empty string
+      GROQ_API_KEY: "${GROQ_API_KEY:-}"
+    volumes:
+      - ./vps_data:/data
+    expose:
+      - "8000"
+
+  frontend:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    depends_on:
+      - backend
+    ports:
+      - "80:80"

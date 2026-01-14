@@ -1,0 +1,164 @@
+<div class="mt-6 bg-slate-800 p-4 rounded">
+
+  <!-- Layout responsive -->
+  <div class="flex flex-col md:flex-row items-start md:gap-6 gap-10">
+
+    <!-- SIMULATEUR -->
+    <div class="w-full md:w-2/5">
+
+      <div class="text-sm font-semibold mb-2">
+        Simulateur: Impact d'une variation de {{ selectedIndicator().nom }} pour {{ selectedCountry().nom }} 
+      </div>
+
+      <div class="text-xs text-slate-400 mb-2">
+        Modifier le paramètre ci-dessous et visualiser la projection sur 5 ans.
+      </div>
+
+      <!-- SLIDER -->
+      <div class="flex items-center gap-4">
+        <input
+          type="range"
+          min="-10"
+          max="10"
+          [(ngModel)]="ProjectionValue"
+          (input)="runPrt()"
+          class="w-full"
+          aria-label="Variation en pourcentage"
+        />
+        <div class="w-20 text-right">{{ ProjectionValue() }}%</div>
+      </div>
+
+      <!-- PROJECTIONS -->
+      <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="bg-slate-700 p-3 rounded text-sm">
+          <div class="text-xs text-slate-400">Projection 1 an</div>
+          <div class="font-semibold">{{ projection1Year() | number:'1.2-2' }}x</div>
+        </div>
+
+        <div class="bg-slate-700 p-3 rounded text-sm">
+          <div class="text-xs text-slate-400">Projection 3 ans</div>
+          <div class="font-semibold">{{ projection3Year() | number:'1.2-2' }}x</div>
+        </div>
+
+        <div class="bg-slate-700 p-3 rounded text-sm">
+          <div class="text-xs text-slate-400">Projection 5 ans</div>
+          <div class="font-semibold">{{ projection5Year() | number:'1.2-2' }}x</div>
+        </div>
+      </div>
+
+      <!-- Bloc des données de simulation -->
+<div class="mt-6 bg-slate-800 p-4 rounded text-slate-200">
+
+  <!-- Titre -->
+  <h3 class="text-lg font-semibold mb-4">Données de la simulation</h3>
+
+  <!-- Indicateur cible -->
+   <ng-container *ngIf="SNData().simulation">
+  <div class="mb-6">
+    <h4 class="text-md font-semibold mb-2 text-indigo-300">
+      Indicateur cible : {{ selectedIndicator()?.nom }}
+    </h4>
+
+    <div class="grid grid-cols-3 gap-4 text-sm">
+      <div class="bg-slate-700 p-3 rounded">
+        <div class="text-slate-400 text-xs">Valeur actuelle</div>
+        <div class="font-bold">{{ SNData().simulation.direct_projection.current_value |number:'1.2-2' }}</div>
+      </div>
+
+      <div class="bg-slate-700 p-3 rounded">
+        <div class="text-slate-400 text-xs">Croissance Dernière année</div>
+        <div class="font-bold">{{ SNData().simulation.direct_projection!.last_year_growth | number:'1.2-2' }}%</div>
+      </div>
+
+      <div class="bg-slate-700 p-3 rounded">
+        <div class="text-slate-400 text-xs">Scénario appliqué</div>
+        <div class="font-bold">{{ SNData().simulation.direct_projection!.scenario_pct }}%</div>
+      </div>
+    </div>
+
+    <!-- Projections du cible -->
+    <div class="grid grid-cols-3 gap-4 mt-4 text-sm">
+      <div class="bg-slate-700 p-3 rounded">
+        <div class="text-slate-400 text-xs">Projection 1 an</div>
+        <div class="font-bold">{{ SNData().simulation.direct_projection!.projected_1y | number:'1.2-2' }}</div>
+      </div>
+
+      <div class="bg-slate-700 p-3 rounded">
+        <div class="text-slate-400 text-xs">Projection 3 ans</div>
+        <div class="font-bold">{{ SNData().simulation.direct_projection!.projected_3y | number:'1.2-2' }}</div>
+      </div>
+
+      <div class="bg-slate-700 p-3 rounded">
+        <div class="text-slate-400 text-xs">Projection 5 ans</div>
+        <div class="font-bold">{{ SNData().simulation.direct_projection!.projected_5y | number:'1.2-2' }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Séparateur -->
+  <div class="border-t border-slate-700 my-6"></div>
+
+  <!-- Indicateurs impactés -->
+  <h4 class="text-md font-semibold mb-3 text-emerald-300">
+    Indicateurs impactés (basés sur corrélation)
+  </h4>
+
+  <!-- Liste des indicateurs impactés -->
+  <div class="space-y-3">
+    <div *ngFor="let item of SNData().simulation!.indirect_projections">
+      <div class="bg-slate-700 p-4 rounded">
+
+        <div class="flex justify-between items-center mb-2">
+          <div class="font-semibold text-sm">{{ item.name }}</div>
+          <div class="text-xs text-slate-400">
+            Corrélation : {{ item.correlation | number:'1.2-2' }}
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4 text-sm">
+          <div>
+            <div class="text-slate-400 text-xs">Valeur actuelle</div>
+            <div class="font-bold">{{ item.current_value |number:'1.2-2' }}</div>
+          </div>
+
+          <div>
+            <div class="text-slate-400 text-xs">Scénario impact (%)</div>
+            <div class="font-bold">{{ item.impact_pct | number:'1.2-2' }}%</div>
+          </div>
+
+          <div>
+            <div class="text-slate-400 text-xs">Projection 1 an</div>
+            <div class="font-bold">{{ item.projected_1_year |number:'1.2-2' }}</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</ng-container>
+</div>
+
+    </div>
+
+
+    <!-- NARRATION -->
+    <div class="w-full md:w-3/5">
+      <div class="text-sm font-semibold mb-2" *ngIf="SNData().narration">
+        <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                  </svg>Données interpretées avec l'IA</div>
+
+      <div class="text-slate-300 leading-relaxed text-justify text-lg">
+        {{ SNData().narration }}
+      </div>
+
+      <div class="mt-3">
+        <button class="w-full bg-indigo-600 px-3 py-2 rounded" *ngIf="SNData().narration" (click)="generatePDF()">
+          Générer rapport
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+</div>

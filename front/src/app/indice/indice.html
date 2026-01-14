@@ -1,0 +1,43 @@
+<div class="mt-6 bg-slate-800 p-4 rounded">
+            
+            <!-- Grid responsive: 1 colonne sur mobile, 2 colonnes sur desktop -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              
+              <!-- Bloc courbe à gauche -->
+              <div class="bg-slate-700 p-4 rounded text-sm">
+                <div class="flex justify-between items-center mb-3">
+                  <div class="font-semibold">Évolution de l'indice composite — {{ indiceData().pays }}</div>
+                  <div class="text-xs text-slate-400">Aperçu en temps réel</div>
+                </div>
+                <div class="h-64 lg:h-96 flex items-center justify-center">
+                  <apx-chart class="w-full"
+                    [series]="chartOptions.series!"
+                    [chart]="chartOptions.chart!"
+                    [xaxis]="chartOptions.xaxis!"
+                    [yaxis]="chartOptions.yaxis!"
+                    [dataLabels]="chartOptions.dataLabels!"
+                    [stroke]="chartOptions.stroke!"
+                    [title]="chartOptions.title!"
+                    [tooltip]="chartOptions.tooltip!"
+                    [grid]="chartOptions.grid!"
+                  ></apx-chart>
+                </div>
+              </div>
+
+              <!-- Bloc interprétation IA à droite -->
+              <div class="bg-slate-700 p-4 rounded text-sm">
+                <div class="flex items-center gap-2 mb-3">
+                  <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                  </svg>
+                  <div class="font-semibold">Interprétation IA</div>
+                </div>
+                <div class="space-y-3 text-slate-300 h-64 lg:h-96 overflow-y-auto">
+                 <div class="text-slate-300 leading-relaxed text-justify text-lg p-3">
+                        {{ indiceData().narration }}
+                      </div>
+
+              </div>
+
+            </div>
+          </div>

@@ -1,0 +1,53 @@
+<!-- BARRE HAUT MOBILE (bouton burger) -->
+<div class="md:hidden fixed top-0 left-0 right-0 flex items-center justify-between bg-slate-900 p-4 z-40">
+  <h1 class="text-lg font-semibold">DataLab</h1>
+  <button (click)="toggle()" class="text-slate-100 text-2xl">
+    ☰
+  </button>
+</div>
+
+<!-- SIDEBAR MOBILE (drawer) -->
+<div
+  class="fixed inset-y-0 left-0 w-64 bg-slate-800 text-slate-100 p-5 transform transition-transform duration-300 md:hidden z-50"
+  [ngClass]="{ '-translate-x-full': !isOpen, 'translate-x-0': isOpen }"
+>
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-xl font-bold">Dashboard</h2>
+    <button (click)="close()" class="text-2xl">&times;</button>
+  </div>
+
+  <nav class="flex flex-col gap-3">
+    <a routerLink="/dashboard" routerLinkActive="bg-slate-700"
+       (click)="close()"
+       class="p-2 rounded hover:bg-slate-700">Dashboard</a>
+
+    <a routerLink="/simulateur" routerLinkActive="bg-slate-700"
+       (click)="close()"
+       class="p-2 rounded hover:bg-slate-700">Simulateur</a>
+
+    <a routerLink="/indice" routerLinkActive="bg-slate-700"
+       (click)="close()"
+       class="p-2 rounded hover:bg-slate-700">Indice Synthétique</a>
+  </nav>
+</div>
+
+<!-- OVERLAY MOBILE (clic pour fermer) -->
+<div
+  *ngIf="isOpen"
+  class="fixed inset-0 bg-black/40 md:hidden z-40"
+  (click)="close()"
+>
+</div>
+
+<!-- SIDEBAR DESKTOP -->
+<div class="hidden md:block w-64 bg-slate-800 text-slate-100 min-h-screen p-5">
+  <h2 class="text-xl font-bold mb-6">DataLab</h2>
+  <nav class="flex flex-col gap-3">
+    <a routerLink="/dashboard" routerLinkActive="bg-slate-700"
+       class="p-2 rounded hover:bg-slate-700">Dashboard</a>
+    <a routerLink="/simulateur" routerLinkActive="bg-slate-700"
+       class="p-2 rounded hover:bg-slate-700">Simulateur</a>
+    <a routerLink="/indice" routerLinkActive="bg-slate-700"
+       class="p-2 rounded hover:bg-slate-700">Indice Synthétique</a>
+  </nav>
+</div>
