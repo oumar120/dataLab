@@ -70,7 +70,7 @@ python -m venv .venv
 # Windows:
 .venv\Scripts\activate
 
-pip install django==3.2.25 djangorestframework django-cors-headers pandas groq requests
+pip install -r requirements.txt
 
 python manage.py migrate
 python manage.py runserver 8000
@@ -122,7 +122,7 @@ Généralement lié à l’environnement Python :
 
 ## Déploiement (à containeriser)
 
-Le projet inclut une configuration Docker pour un déploiement simple sur un VPS (même sans nom de domaine).
+Le projet inclut une configuration Docker pour un déploiement simple sur un VPS.
 
 ### Démarrage via Docker (local ou VPS)
 
@@ -137,23 +137,6 @@ Prérequis: Docker + Docker Compose.
 ```bash
 docker compose up -d --build
 ```
-
-### SQLite (conserver vos données World Bank)
-
-Le conteneur backend utilise une base SQLite persistée sur le VPS dans le dossier `vps_data/`.
-
-- Emplacement sur le VPS (dans le repo): `./vps_data/db.sqlite3`
-- Dans Docker: `/data/db.sqlite3` (via `DJANGO_DB_PATH`)
-
-Pour déployer **avec votre base existante** (déjà remplie via World Bank):
-1) Sur le VPS: créer le dossier `vps_data/`
-2) Copier votre fichier `back/src/db.sqlite3` (depuis votre PC) vers `vps_data/db.sqlite3` sur le VPS
-3) Relancer `docker compose up -d --build`
-
-3) Accès:
-- Front: `http://<IP_DU_VPS>/`
-- API: `http://<IP_DU_VPS>/api/`
-- Admin: `http://<IP_DU_VPS>/admin/`
 
 Notes:
 - Le front est servi par Nginx et proxy `/api` vers le backend.
