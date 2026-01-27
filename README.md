@@ -1,6 +1,8 @@
 # Plateforme d’analyse socio‑économique (Django + Angular)
 
-Projet full‑stack pour explorer des indicateurs socio‑économiques, simuler des scénarios (projection + corrélations), et générer une interprétation par IA avec export PDF.
+Projet full‑stack pour explorer des indicateurs socio‑économiques, simuler des scénarios (projection + corrélations), et générer une interprétation par IA avec possibilité d'exporter au format PDF.
+
+**Demo : https://datalab.cv-builder.ca/** 
 
 ## Fonctionnalités
 
@@ -122,7 +124,7 @@ Généralement lié à l’environnement Python :
 
 ## Déploiement (à containeriser)
 
-Le projet inclut une configuration Docker pour un déploiement simple sur un VPS.
+Le projet inclut une configuration Docker pour un déploiement sur un VPS.
 
 ### Démarrage via Docker (local ou VPS)
 
