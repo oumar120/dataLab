@@ -95,9 +95,7 @@ def simulation_insights(pays: str,indicateur_cible: str,scenario_pct: float):
     impacted = getImpactedIndicator(corr_matrix, indicateur_cible, seuil=0.6)
 
     # PROJECTIONS INDIRECTES
-    indirect_projections = projectionImpact(
-        df, corr_matrix, indicateur_cible, scenario_pct, impacted
-    )
+    indirect_projections = projectionImpact( df, corr_matrix, indicateur_cible, scenario_pct, impacted)
 
     # CROISSANCE DIRECTE
     serie = df[indicateur_cible].dropna()
@@ -106,10 +104,7 @@ def simulation_insights(pays: str,indicateur_cible: str,scenario_pct: float):
     last_value = serie.iloc[-1]
     prev_value = serie.iloc[-2]
 
-    real_growth_last_year = (
-        (last_value - prev_value) / prev_value * 100
-        if prev_value != 0 else 0
-    )
+    real_growth_last_year = ( (last_value - prev_value) / prev_value * 100 if prev_value != 0 else 0 )
 
     direct_projection = {
         "current_value": float(last_value),
