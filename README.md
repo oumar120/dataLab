@@ -4,6 +4,10 @@ Projet full‑stack pour explorer des indicateurs socio‑économiques, simuler 
 
 **Demo : https://datalab.cv-builder.ca/** 
 
+
+https://github.com/user-attachments/assets/46648221-d27c-47f6-99d3-b88873172017
+
+
 ## Fonctionnalités
 
 ### 1) Dashboard (visualisation)
